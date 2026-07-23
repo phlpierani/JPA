@@ -32,9 +32,20 @@ public class Event implements java.io.Serializable {
 
     @ManyToMany
     @JoinTable(name = "event_attendee",
-            joinColumns = @JoinColumn(name = "evemt_id"),
+            joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "attendee_id"))
     private Set<Attendee> attendees = new HashSet<Attendee>();
+
+    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL)
+    private Location location;
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
     public Set<Session> getSessions() {
         return sessions;

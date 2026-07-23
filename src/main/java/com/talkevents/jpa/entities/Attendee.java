@@ -1,8 +1,11 @@
 package com.talkevents.jpa.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.io.Serial;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -21,6 +24,10 @@ public class Attendee implements java.io.Serializable{
 
     @Column(length = 100)
     private String email;
+
+    @JsonProperty(access =  JsonProperty.Access.WRITE_ONLY)
+    @ManyToMany(mappedBy = "attendees")
+    private Set<Event> events = new HashSet<Event>();
 
     public UUID getId() {
         return id;
